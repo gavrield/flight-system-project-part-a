@@ -220,3 +220,34 @@ $$
 		WHERE "tickets"."customer_id" = _customer_id;
 	END;
 $$
+
+CREATE PROCEDURE add_ticket(_flight_id bigint, _customer_id bigint)
+LANGUAGE plpgsql AS
+$$
+	BEGIN
+		-- reduce the remining tickes by 1
+		UPDATE "Flights"
+		SET "Remaining_Tickets" = "Remaining_Tickets" - 1
+		WHERE "Id" = _flight_id;
+		
+		-- add new ticket
+		INSERT INTO "Tickets" ("Flight_Id", "Customer_Id")
+		VALUES (_flight_id, _customer_id);
+	END;
+$$
+
+CREATE PROCEDURE remove_ticket(_flight_id bigint, _ticket_id bigint)
+LANGUAGE plpgsql AS
+$$
+	BEGIN
+		-- increse the remining tickes by 1
+		UPDATE "Flights"
+		SET "Remaining_Tickets" = "Remaining_Tickets" + 1
+		WHERE "Id" = _flight_id;
+		
+		-- delte the ticket
+		DELETE FROM "Tickets"
+		WHERE "Id" = _ticket_id;
+		
+	END;
+$$
