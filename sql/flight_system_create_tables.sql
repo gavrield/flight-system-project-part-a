@@ -75,7 +75,7 @@ CREATE TABLE "Flights"(
 	"Destination_Country_Id" int NOT NULL,
 	"Depature_Time" timestamp NOT NULL,
 	"Landing_Time" timestamp NOT NULL,
-	"Remaining_Tickets" int NOT NULL,
+	"Remaining_Tickets" int NOT NULL CHECK("Remaining_Tickets" > 0),
 	PRIMARY KEY("Id"),
 	FOREIGN KEY("Airline_Company_Id") REFERENCES "Airline_Companies"("Id"),
 	FOREIGN KEY("Orgin_Country_Id") REFERENCES "Countries"("Id"),
