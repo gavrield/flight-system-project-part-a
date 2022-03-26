@@ -8,7 +8,7 @@ import java.sql.*;
 public class Repository {
     public static String USER = "postgres";
     public static String DRIVER = "org.postgresql.Driver";
-    public static String PASSWORD = "s2s2s2s2";
+    public static String PASSWORD = "********";
     public static String URL = "jdbc:postgresql://localhost:5432/FLIGHT_SYSTEM";
     private Connection connection;
     private Statement statement;
