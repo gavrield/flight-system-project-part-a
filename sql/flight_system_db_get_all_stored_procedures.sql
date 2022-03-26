@@ -13,7 +13,7 @@ $$
 		SELECT "Users"."Id","Users"."Username","Users"."Password",
 		       "Users"."Email", "Users"."User_Role", "User_Roles"."Role_Name"
 		FROM "Users"
-		JOIN "User_Roles" ON "Users"."Id"="User_Roles"."Id";
+		JOIN "User_Roles" ON "Users"."User_Role"="User_Roles"."Id";
 	END;
 $$
 
@@ -92,57 +92,57 @@ CREATE FUNCTION get_flights() RETURNS TABLE(
   "country_name" text, "user_id" bigint, 
   "username" text, "password" text, 
   "email" text, "role_id" integer, "role_name" text, 
-  "orgin_country_id" integer, "orgin_country_name" text, 
+  "origin_country_id" integer, "origin_country_name" text, 
   "destination_country_id" integer, 
   "destination_country_name" text, 
   "departure_time" timestamp, "landing_time" timestamp, 
   "remaining_tickets" integer
 ) LANGUAGE plpgsql AS $$ BEGIN RETURN QUERY 
 SELECT 
-  "flights_orgin_dest"."Id", 
+  "flights_origin_dest"."Id", 
   "airlines".*, 
-  "flights_orgin_dest"."Orgin_Country_Id", 
-  "flights_orgin_dest"."orgin_country_name", 
-  "flights_orgin_dest"."Destination_Country_Id", 
-  "flights_orgin_dest"."destination_country_name", 
-  "flights_orgin_dest"."Depature_Time", 
-  "flights_orgin_dest"."Landing_Time", 
-  "flights_orgin_dest"."Remaining_Tickets" 
+  "flights_origin_dest"."origin_Country_Id", 
+  "flights_origin_dest"."origin_country_name", 
+  "flights_origin_dest"."Destination_Country_Id", 
+  "flights_origin_dest"."destination_country_name", 
+  "flights_origin_dest"."Departure_Time", 
+  "flights_origin_dest"."Landing_Time", 
+  "flights_origin_dest"."Remaining_Tickets" 
 FROM 
   (
     SELECT 
-      "flights_orgin_country"."Id", 
-      "flights_orgin_country"."Airline_Company_Id", 
-      "flights_orgin_country"."Orgin_Country_Id", 
-      "flights_orgin_country"."orgin_country_name", 
-      "flights_orgin_country"."Destination_Country_Id", 
+      "flights_origin_country"."Id", 
+      "flights_origin_country"."Airline_Company_Id", 
+      "flights_origin_country"."origin_Country_Id", 
+      "flights_origin_country"."origin_country_name", 
+      "flights_origin_country"."Destination_Country_Id", 
       "Countries"."Name" AS "destination_country_name", 
-      "flights_orgin_country"."Depature_Time", 
-      "flights_orgin_country"."Landing_Time", 
-      "flights_orgin_country"."Remaining_Tickets" 
+      "flights_origin_country"."Departure_Time", 
+      "flights_origin_country"."Landing_Time", 
+      "flights_origin_country"."Remaining_Tickets" 
     FROM 
       (
         SELECT 
           "Flights"."Id", 
           "Flights"."Airline_Company_Id", 
-          "Flights"."Orgin_Country_Id", 
-          "Countries"."Name" AS "orgin_country_name", 
+          "Flights"."origin_Country_Id", 
+          "Countries"."Name" AS "origin_country_name", 
           "Flights"."Destination_Country_Id", 
-          "Flights"."Depature_Time", 
+          "Flights"."Departure_Time", 
           "Flights"."Landing_Time", 
           "Flights"."Remaining_Tickets" 
         FROM 
           "Flights" 
-          JOIN "Countries" ON "Flights"."Orgin_Country_Id" = "Countries"."Id"
-      ) AS "flights_orgin_country" 
-      JOIN "Countries" ON "Countries"."Id" = "flights_orgin_country"."Destination_Country_Id"
-  ) AS "flights_orgin_dest" 
+          JOIN "Countries" ON "Flights"."origin_Country_Id" = "Countries"."Id"
+      ) AS "flights_origin_country" 
+      JOIN "Countries" ON "Countries"."Id" = "flights_origin_country"."Destination_Country_Id"
+  ) AS "flights_origin_dest" 
   JOIN (
     SELECT 
       * 
     FROM 
       get_airline_companies()
-  ) AS "airlines" ON "flights_orgin_dest"."Id" = "airlines"."airline_id";
+  ) AS "airlines" ON "flights_origin_dest"."Airline_Company_Id" = "airlines"."airline_id";
 END;
 $$
 
@@ -153,7 +153,7 @@ CREATE FUNCTION get_tickets() RETURNS TABLE(
   "airline_user_id" bigint, "airline_username" text, 
   "airline_password" text, "airline_email" text, 
   "airline_role_id" integer, "airline_role_name" text, 
-  "orgin_country_id" integer, "orgin_country_name" text, 
+  "origin_country_id" integer, "origin_country_name" text, 
   "destination_country_id" integer, 
   "destination_country_name" text, 
   "departure_time" timestamp, "landing_time" timestamp, 
@@ -200,3 +200,6 @@ FROM
   ) AS "customers" ON "tickets_flights"."Customer_Id" = "customers"."customer_id";
 END;
 $$
+
+
+
