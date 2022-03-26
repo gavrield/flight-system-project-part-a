@@ -92,18 +92,18 @@ public class AdministratorDao extends AbstractDao<Administrator, Integer> {
     private Administrator administratorFactory(ResultSet resultSet) throws SQLException{
         Administrator administrator = null;
         try {
-            administrator = new Administrator(
-                    resultSet.getInt(0),
-                    resultSet.getString(1),
+                        administrator = new Administrator(
+                    resultSet.getInt(1),
                     resultSet.getString(2),
+                    resultSet.getString(3),
                     new User(
-                            resultSet.getLong(3),
-                            resultSet.getString(4),
+                            resultSet.getLong(4),
                             resultSet.getString(5),
                             resultSet.getString(6),
+                            resultSet.getString(7),
                             new UserRole(
-                                    resultSet.getInt(7),
-                                    resultSet.getString(8)
+                                    resultSet.getInt(8),
+                                    resultSet.getString(9)
                             )
                     )
             );
