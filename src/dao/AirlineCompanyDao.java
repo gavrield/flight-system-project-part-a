@@ -143,20 +143,20 @@ public class AirlineCompanyDao extends AbstractDao<AirlineCompany, Long>{
         AirlineCompany airlineCompany =null;
         try {
             airlineCompany = new AirlineCompany(
-                    resultSet.getLong(0),
-                    resultSet.getString(1),
+                    resultSet.getLong(1),
+                    resultSet.getString(2),
                     new Country(
-                            resultSet.getInt(2),
-                            resultSet.getString(3)
+                            resultSet.getInt(3),
+                            resultSet.getString(4)
                     ),
                     new User(
-                            resultSet.getLong(4),
-                            resultSet.getString(5),
+                            resultSet.getLong(5),
                             resultSet.getString(6),
                             resultSet.getString(7),
+                            resultSet.getString(8),
                             new UserRole(
-                                    resultSet.getInt(8),
-                                    resultSet.getString(9)
+                                    resultSet.getInt(9),
+                                    resultSet.getString(10)
                             )
                     )
             );
