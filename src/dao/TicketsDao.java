@@ -98,55 +98,55 @@ public class TicketsDao extends AbstractDao<Ticket, Long> {
     private Ticket ticketFactory(ResultSet resultSet) throws SQLException {
         Ticket ticket = null;
         try {
-            ticket = new Ticket(
-                    resultSet.getLong(0),
+                        ticket = new Ticket(
+                    resultSet.getLong(1),
                     new Flight(
-                            resultSet.getLong(1),
+                            resultSet.getLong(2),
                             new AirlineCompany(
-                                    resultSet.getLong(2),
-                                    resultSet.getString(3),
+                                    resultSet.getLong(3),
+                                    resultSet.getString(4),
                                     new Country(
-                                            resultSet.getInt(4),
-                                            resultSet.getString(5)
+                                            resultSet.getInt(5),
+                                            resultSet.getString(6)
                                     ),
                                     new User(
-                                            resultSet.getLong(6),
-                                            resultSet.getString(7),
+                                            resultSet.getLong(7),
                                             resultSet.getString(8),
                                             resultSet.getString(9),
+                                            resultSet.getString(10),
                                             new UserRole(
-                                                    resultSet.getInt(10),
-                                                    resultSet.getString(11)
+                                                    resultSet.getInt(11),
+                                                    resultSet.getString(12)
                                             )
                                     )
                             ),
                             new Country(
-                                    resultSet.getInt(12),
-                                    resultSet.getString(13)
+                                    resultSet.getInt(13),
+                                    resultSet.getString(14)
                             ),
                             new Country(
-                                    resultSet.getInt(14),
-                                    resultSet.getString(15)
+                                    resultSet.getInt(15),
+                                    resultSet.getString(16)
                             ),
-                            resultSet.getTimestamp(16),
                             resultSet.getTimestamp(17),
-                            resultSet.getInt(18)
+                            resultSet.getTimestamp(18),
+                            resultSet.getInt(19)
                     ),
                     new Customer(
-                            resultSet.getLong(19),
-                            resultSet.getString(20),
+                            resultSet.getLong(20),
                             resultSet.getString(21),
                             resultSet.getString(22),
                             resultSet.getString(23),
                             resultSet.getString(24),
+                            resultSet.getString(25),
                             new User(
-                                    resultSet.getLong(25),
-                                    resultSet.getString(26),
+                                    resultSet.getLong(26),
                                     resultSet.getString(27),
                                     resultSet.getString(28),
+                                    resultSet.getString(29),
                                     new UserRole(
-                                            resultSet.getInt(29),
-                                            resultSet.getString(30)
+                                            resultSet.getInt(30),
+                                            resultSet.getString(31)
                                     )
                             )
                     )
